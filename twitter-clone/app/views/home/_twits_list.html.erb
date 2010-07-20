@@ -1,0 +1,16 @@
+<div id="twits_list">
+  <%- @twits.each do |twit| -%>
+     <div id="twits_content">
+  	<%= image_tag ("avatar.jpg", :alt => "my logo") %>
+           <div id="twits">
+ 		<%= link_to twit.user.username, user_twits_path(twit.user.username) %><br />
+  		<%= h twit.message %>
+                <div id="twit_comments">
+  		  <%= distance_of_time_in_words_to_now(twit.created_at) %> ago!
+                </div>
+           </div>
+     </div>
+   <div style="clear:left;"></div>
+  <%- end -%>
+</div>
+

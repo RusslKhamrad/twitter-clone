@@ -1,0 +1,24 @@
+<div id="main_content">
+  <div id="what">
+   <h3>What are you doing?</h3>
+    <%- form_for Twit.new do |f| -%>
+      <%= f.text_area :message %>
+  </div>
+  <div id="down_what"
+    <p id="latest">
+      Latest message: <br />
+      <%- if @last_twit -%> 
+      <%= h @last_twit.message %><br />
+    </p>
+    <div id="posting"> 
+      <%= f.submit "Post" %>
+    </div>
+    <p id="latest">
+      <%= distance_of_time_in_words_to_now(@last_twit.created_at) %> ago!
+    </p>
+      <%- end -%>
+  </div>
+    <%- end -%>
+</div>
+    <%= render :partial => "twits_list", :locals => {:twits => @twits} %>
+

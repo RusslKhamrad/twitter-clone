@@ -1,0 +1,19 @@
+<div id="show">
+  <div id="show_title">
+    <%= image_tag ("avatar.jpg", :alt => "my logo") %>
+      <h4>
+        <%= @user.username %>
+      </h4>
+  </div>
+  <div id="follow_not">
+    <%- form_tag toggle_follow_path do |f| -%>
+       <% if current_user.is_friend? @user %>
+	  <%= submit_tag "Following!", :class => "button" %>
+       <%- else -%>
+          <%= submit_tag "Not Following!", :class => "button" %>
+       <%- end -%>
+    <% end %>
+  </div>
+</div>
+
+  <%= render :partial => "twits_list", :locals => {:twits => @twits} %>

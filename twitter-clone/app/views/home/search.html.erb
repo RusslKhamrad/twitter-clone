@@ -1,0 +1,39 @@
+<div id="folowing_list_1">
+  <%- @friends.each do |friend| -%>
+  <div<%- if @friends.first == friend -%> class="first" <%- end -%> id="<%= friend.username %>">
+    <%= image_tag ("avatar.jpg", :alt => "my logo") %>
+    <div class="twit_message_container">
+     <h3><%= link_to friend.username, user_twits_path(friend.username) %></h3>
+       <%- if friend.twits.length > 0 -%>
+     <%= h friend.twits.last.message %>
+         <%= distance_of_time_in_words_to_now(friend.twits.last.created_at) %> ago
+       <%- end -%>
+    </div>
+	<div class="button_container">
+         <input type="button" name="<%= friend.username %>" id="btn_<%= friend.username %>" class="button ajax_button" value="<%- if current_user.is_friend? friend -%>Stop following<%- else -%>Follow<%- end -%>"/>
+       </div>
+     <div class="clear"></div>
+   </div>
+  <%- end -%>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('.ajax_button').click(function() {
+     $.ajax({
+         type: "POST",
+         url: "/" + $(this).attr('name') + "/toggle_follow_via_ajax",
+         success: function(msg){
+           elm = $('#btn_' + msg);
+           if (elm.val() == "Stop following") {
+              elm.val("Follow");
+              $('#' + msg).slideUp('slow'); 
+              } 
+           else { 
+                elm.val("Stop following");
+                }
+         }
+       });
+     })
+   });
+</script>

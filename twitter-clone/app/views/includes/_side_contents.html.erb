@@ -1,0 +1,33 @@
+   <div id="side_bar_content">
+     <h3>
+        <%= link_to current_user.username, user_twits_path(current_user.username) %>
+     </h3>
+     <%= link_to image_tag ("avatar.jpg", :alt => "my logo") %>
+     <div id="side_statistic">
+	<%= pluralize(current_user.twits.length, "twit") %><br />
+	<%= link_to "#{current_user.friends.count} following", following_path %><br />
+	<%= pluralize(current_user.friends_of.count, "follower") %><br />
+    </div>
+    <%- form_tag search_path do -%>
+        <div id="search_bar">
+          <h4>
+            search bar:
+          </h4>
+            <%= text_field_tag :q, @q, :class => "text" %> 
+        </div>
+            <p id="side_comment">
+               *put the condition and press Enter!
+            </p>
+    <%- end -%>
+    <div id="followers-list">
+            <p id="followers_comment">
+               Your followers:
+            </p>
+    <div id="followers">
+      <%- current_user.friends_of.each do |friend| -%>
+        <%= link_to friend.username, user_twits_path(friend.username) %><br />
+      <%- end -%>
+    </div>
+    </div>
+  </div>
+
